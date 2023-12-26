@@ -10,10 +10,13 @@ const messageBoardSlice = createSlice({
       state.messages.push({ text: action.payload.text });
     },
     deleteMessage: (state, action) => {
-      state.messages.splice(action.payload.index, 1);
+      const { index } = action.payload;
+      state.messages.splice(index, 1);
     },
   },
 });
 
-export const { addMessage, deleteMessage } = messageBoardSlice.actions;
+const { addMessage, deleteMessage } = messageBoardSlice.actions;
+
+export { addMessage, deleteMessage };
 export default messageBoardSlice.reducer;

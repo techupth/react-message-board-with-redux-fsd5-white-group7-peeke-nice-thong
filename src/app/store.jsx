@@ -1,11 +1,12 @@
-// TODO: Start Create Store Here !
 import { configureStore } from "@reduxjs/toolkit";
 import messageBoardReducer from "../slices/messageBoardSlice";
 
+const rootReducer = {
+  messageBoard: messageBoardReducer,
+};
+
 const store = configureStore({
-  reducer: {
-    messageBoard: messageBoardReducer,
-  },
+  reducer: rootReducer,
 });
 
 export default store;

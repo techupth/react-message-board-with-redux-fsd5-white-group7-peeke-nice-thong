@@ -2,6 +2,37 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, deleteMessage } from "../slices/messageBoardSlice";
 
+const MessageInput = ({ value, onChange, onSubmit }) => {
+  return (
+    <div className="message-input-container">
+      <label>
+        <input
+          id="message-text"
+          name="message-text"
+          type="text"
+          placeholder="Enter message here"
+          value={value}
+          onChange={onChange}
+        />
+      </label>
+      <button className="submit-message-button" onClick={onSubmit}>
+        Submit
+      </button>
+    </div>
+  );
+};
+
+const Message = ({ text, onDelete }) => {
+  return (
+    <div className="message">
+      <h1>{text}</h1>
+      <button className="delete-button" onClick={onDelete}>
+        x
+      </button>
+    </div>
+  );
+};
+
 const MessageBoard = () => {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.messageBoard.messages);
@@ -12,7 +43,7 @@ const MessageBoard = () => {
       dispatch(addMessage({ text: messageText }));
       setMessageText("");
     } else {
-      alert("Enter Message Here");
+      alert("Please Enter Message Here ! ");
     }
   };
 
@@ -23,32 +54,18 @@ const MessageBoard = () => {
   return (
     <div className="app-wrapper">
       <h1 className="app-title">Message board</h1>
-      <div className="message-input-container">
-        <label>
-          <input
-            id="message-text"
-            name="message-text"
-            type="text"
-            placeholder="Enter message here"
-            value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
-          />
-        </label>
-        <button className="submit-message-button" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      <MessageInput
+        value={messageText}
+        onChange={(e) => setMessageText(e.target.value)}
+        onSubmit={handleSubmit}
+      />
       <div className="board">
         {messages.map((message, index) => (
-          <div key={index} className="message">
-            <h1>{message.text}</h1>
-            <button
-              className="delete-button"
-              onClick={() => handleDelete(index)}
-            >
-              x
-            </button>
-          </div>
+          <Message
+            key={index}
+            text={message.text}
+            onDelete={() => handleDelete(index)}
+          />
         ))}
       </div>
     </div>
