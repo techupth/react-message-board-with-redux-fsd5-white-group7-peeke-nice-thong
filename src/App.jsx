@@ -1,12 +1,12 @@
-import "./App.css";
+import React from "react";
 import MessageBoard from "./components/MessageBoard";
-
-function App() {
+import "./App.css";
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <MessageBoard />
     </div>
   );
-}
+};
 
 export default App;
